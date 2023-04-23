@@ -24,6 +24,10 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
+      isAdmin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
     });
   },
 
