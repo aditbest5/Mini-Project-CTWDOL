@@ -1,18 +1,28 @@
 module.exports = (sequelize, DataTypes) => {
   const Store = sequelize.define(
-    "store",
+    "Store",
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true,
+      },
       store_name: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
       },
       createdAt: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
       updatedAt: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
     },
     {}
   );
+  Store.associate = (models) => {
+    Store.hasMany(models.Transaction, { foreignKey: "StoreId" });
+  };
+
   return Store;
 };

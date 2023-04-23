@@ -1,15 +1,24 @@
 module.exports = (sequelize, DataTypes) => {
   const Cart = sequelize.define(
-    "cart",
+    "Cart",
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true,
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+      },
       qty: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       createdAt: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
       updatedAt: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
     },
     {}
@@ -21,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
   //     through: models.Cart_Product,
   //     foreignKey: "cartId",
   //   });
-  //   Cart.hasMany(models.Cart_Product, { foreignKey: "cartId" });
-    // hasMany tidak perlu, karena sudah menggunakan many to many / belongsToMany
+  // Cart.hasMany(models.User, { foreignKey: "cartId" });
+  // hasMany tidak perlu, karena sudah menggunakan many to many / belongsToMany
   // };
   return Cart;
 };

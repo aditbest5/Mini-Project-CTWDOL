@@ -1,18 +1,24 @@
 module.exports = (sequelize, DataTypes) => {
   const Transaction_Item = sequelize.define(
-    "transaction_items",
+    "Transaction_Item",
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true,
+      },
       price: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       qty: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       createdAt: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
       updatedAt: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
     },
     {}
@@ -27,5 +33,5 @@ module.exports = (sequelize, DataTypes) => {
   //     });
   //   };
 
-  return Product_Category;
+  return Transaction_Item;
 };

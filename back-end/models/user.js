@@ -1,10 +1,13 @@
-const { DataTypes, Models, Sequelize } = require("sequelize");
-
-class user extends Model {}
-
-module.exports = (sequelize, Sequelize) => {
-  const User = user.init(
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define(
+    "User",
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true,
+      },
       email: {
         type: DataTypes.STRING,
       },
@@ -24,7 +27,26 @@ module.exports = (sequelize, Sequelize) => {
         type: DataTypes.DATE,
       },
     },
-    { sequelize, modelName: "user" }
+    {}
   );
+
+  // User.associate = (models) => {
+  //   User.hasOne(models.Cart, { foreignKey: "userId" });
+  // };
+  User.associate = (models) => {
+    User.belongsToMany(models.Product, {
+      through: models.Store,
+      foreignKey: "userId",
+    });
+    User.belongsToMany(models.Product, {
+      through: models.Cart,
+      foreignKey: "userId",
+    });
+    User.belongsToMany(models.Cart, {
+      through: models.Transaction,
+      foreignKey: "userId",
+    });
+  };
+
   return User;
 };

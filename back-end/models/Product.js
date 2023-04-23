@@ -1,21 +1,27 @@
 module.exports = (sequelize, DataTypes) => {
   const Product = sequelize.define(
-    "product",
+    "Product",
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true,
+      },
       product_name: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
       },
       price: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       stock: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       createdAt: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
       updatedAt: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
     },
     {}
@@ -37,6 +43,12 @@ module.exports = (sequelize, DataTypes) => {
   //     foreignKey: "productId",
   //   });
   // };
+  Product.associate = (models) => {
+    Product.belongsToMany(models.Category, {
+      through: models.Product_Category,
+      foreignKey: "ProductId",
+    });
+  };
 
   return Product;
 };
