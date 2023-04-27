@@ -1,10 +1,12 @@
 const db = require("./models");
 const express = require("express");
 const port = 2000;
+const cors = require("cors");
 const app = express();
 app.use(express.json());
 db.sequelize.sync({ alter: false });
 const { authRoutes } = require("./Routes");
+app.use(cors());
 
 app.use("/auth", authRoutes);
 // const createUser = async () => {
