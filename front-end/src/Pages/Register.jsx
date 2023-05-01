@@ -4,6 +4,7 @@ import { useState } from "react";
 import { API_URL } from "../constants/api";
 import Axios from "axios";
 import swal from "sweetalert";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [input, setInput] = useState({
@@ -19,27 +20,30 @@ const Register = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    Axios.post(`http://localhost:2000/auth/register`, {
+    Axios.post(`${API_URL}/auth/register`, {
       email: input.email,
       username: input.username,
       password: input.password,
       isAdmin: false,
       name: input.fullname,
+      status: "unverified",
     })
-      .then(() => {
+      .then((res) => {
         swal({
-          tittle: "Success",
-          text: "Berhasil registrasi!",
+          title: "Success",
+          text: `${res.data.message}`,
           icon: "success",
         });
         setInput({ email: "", password: "", fullname: "", username: "" });
       })
-      .catch(() =>
-        swal({
-          title: "Terjadi kesalahan Server",
-          icon: "warning",
-        })
-      );
+      .catch((err) => {
+        if (err.response) {
+          swal({
+            text: `${err.response.data.message}`,
+            icon: "warning",
+          });
+        }
+      });
   };
   return (
     <>
@@ -57,7 +61,7 @@ const Register = () => {
           </h1>
         </div>
         <div className="flex flex-row justify-center">
-          <Card className="w-10/12">
+          <Card className="w-10/12 bg-zinc-300">
             <form onSubmit={onSubmit} className="flex flex-col gap-4">
               <div>
                 <div className="mb-2 block">
@@ -68,6 +72,7 @@ const Register = () => {
                   name="email"
                   type="email"
                   placeholder="name@gmail.com"
+                  value={input.email}
                   required={true}
                   onChange={inputHandler}
                 />
@@ -80,6 +85,7 @@ const Register = () => {
                   id="username"
                   onChange={inputHandler}
                   name="username"
+                  value={input.username}
                   type="text"
                   required={true}
                 />
@@ -93,6 +99,7 @@ const Register = () => {
                   onChange={inputHandler}
                   name="fullname"
                   type="text"
+                  value={input.fullname}
                   required={true}
                 />
               </div>
@@ -105,10 +112,20 @@ const Register = () => {
                   onChange={inputHandler}
                   name="password"
                   type="password"
+                  value={input.password}
                   required={true}
                 />
               </div>
-              <Button type="submit">Submit</Button>
+              <div className="flex flex-row justify-between">
+                <Button className="w-24" type="submit">
+                  Submit
+                </Button>
+                <Link to="/">
+                  <h1 className="text-sky-500	">
+                    Already Have Account? Sign in!
+                  </h1>
+                </Link>
+              </div>
             </form>
           </Card>
         </div>
