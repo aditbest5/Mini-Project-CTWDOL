@@ -4,7 +4,7 @@ const port = 2000;
 const cors = require("cors");
 const app = express();
 app.use(express.json());
-db.sequelize.sync({ alter: false });
+db.sequelize.sync({ alter: true });
 const { authRoutes } = require("./Routes");
 app.use(cors());
 

@@ -12,7 +12,7 @@ const verifyToken = (req, res, next) => {
       // jika token null atau bukan token
       return res.status(401).send("Unauthorized Request");
     }
-    let verifyUser = jwt.verify(token, "key123"); // membuat verify dengan isinya token dan key saat login
+    let verifyUser = jwt.verify(token, "private123"); // membuat verify dengan isinya token dan key saat login
     if (!verifyUser) {
       return res.status(401).send("Unauthorized Request");
     }
