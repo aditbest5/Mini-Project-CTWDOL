@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "0215464580An@",
+    "password": "",
     "database": "project-ctwdol",
     "host": "127.0.0.1",
     "dialect": "mysql"
