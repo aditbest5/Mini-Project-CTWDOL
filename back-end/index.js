@@ -8,8 +8,9 @@ const app = express();
 const port = process.env.DEV_PORT;
 app.use(express.json());
 db.sequelize.sync({ alter: true });
-const { authRoutes } = require("./Routes");
+const { authRoutes, categoryRoutes } = require("./Routes");
 app.use(cors());
 
 app.use("/auth", authRoutes);
+app.use("/category", categoryRoutes);
 app.listen(port, () => console.log(`Server is running at port ${port}`));

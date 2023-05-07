@@ -1,8 +1,8 @@
-const { authControllers } = require("../Controllers");
+const { authControllers, categoryController } = require("../Controllers");
 const { verifyToken, checkRole } = require("../middleware/auth");
 
 const router = require("express").Router();
-const { auth } = require("../lib/authToken");
+// const { auth } = require("../lib/authToken");
 
 router.post("/register", authControllers.register);
 router.post("/login", authControllers.login);

@@ -41,7 +41,7 @@ const AuthController = {
           from: `Admin <aditbest5@gmail.com>`,
           to: `${email}`,
           subject: "Activate account",
-          html: `<h1>Welcome to Purwadhik. Hello ${email}, please confirm your account <a href='http://localhost:3000/authentication/${token}'>here</a></h1>`,
+          html: `<h1>Welcome to Purwadhika. Hello ${email}, please confirm your account <a href='http://localhost:3000/authentication/${token}'>here</a></h1>`,
         },
         (errMail, resMail) => {
           if (errMail) {
@@ -89,6 +89,11 @@ const AuthController = {
       if (!checkEmail) {
         return res.status(409).json({
           message: "no email found!",
+        });
+      }
+      if (checkEmail.status === "unverified") {
+        return res.status(409).json({
+          message: `Your Account Unverified. Please Verified`,
         });
       }
       const checkPassword = await bcrypt.compare(password, checkEmail.password);
